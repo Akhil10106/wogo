@@ -709,6 +709,79 @@ body.dark .price {
     color: #FFFFFF;
 }
 
+/* Existing styles remain unchanged except for additions below */
+
+/* Profile Modal */
+.modal#profile-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Limit height to trigger scrollbar */
+    overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+/* Custom Scrollbar for Profile Modal */
+.modal-content::-webkit-scrollbar {
+    width: 8px; /* Slim scrollbar for sleek look */
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #E0E0E0; /* Light grey track in light mode */
+    border-radius: 12px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #D4AF37; /* Gold thumb to match theme */
+    border-radius: 12px;
+    transition: background 0.3s ease;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #B8962F; /* Slightly darker gold on hover */
+}
+
+body.dark .modal-content {
+    background: #1A1A1A;
+}
+
+body.dark .modal-content::-webkit-scrollbar-track {
+    background: #333333; /* Dark grey track in dark mode */
+}
+
+body.dark .modal-content::-webkit-scrollbar-thumb {
+    background: #E0E0E0; /* Light grey thumb in dark mode */
+}
+
+body.dark .modal-content::-webkit-scrollbar-thumb:hover {
+    background: #CCCCCC; /* Slightly darker on hover */
+}
+
+/* Ensure ride-history section doesn’t overflow unnecessarily */
+.ride-history {
+    margin: 2rem 0;
+}
+
+/* Optional: Adjust content padding for better spacing */
+.profile-details, .stats, .promo-section, .ride-history {
+    margin-bottom: 2rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .booking-panel {
