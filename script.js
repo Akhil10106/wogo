@@ -12,7 +12,6 @@ function initMap() {
         maxZoom: 19,
     }).addTo(map);
 
-    // Load and apply saved theme on page load
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
         document.body.classList.add("dark");
@@ -25,8 +24,6 @@ function initMap() {
     checkAuthStatus();
     setupThemeToggle();
     setupMobileNav();
-
-    // Clear input fields on page refresh
     clearInputFields();
 }
 
@@ -51,7 +48,6 @@ function checkAuthStatus() {
             </div>`;
         setupAuth();
     } else {
-        // User is logged in; don’t overwrite booking-panel, just initialize
         document.getElementById("profile-btn").textContent = user.name.split(" ")[0];
         getUserLocation();
         setupAutocomplete("pickup", "pickup-suggestions");
@@ -63,14 +59,33 @@ function checkAuthStatus() {
 }
 
 function setupAuth() {
-    document.getElementById("login-btn").addEventListener("click", () => authenticate("login"));
-    document.getElementById("signup-btn").addEventListener("click", () => authenticate("signup"));
+    const loginBtn = document.getElementById("login-btn");
+    const signupBtn = document.getElementById("signup-btn");
+
+    if (!loginBtn || !signupBtn) {
+        console.error("Login or Signup buttons not found in the DOM");
+        return;
+    }
+
+    loginBtn.addEventListener("click", () => authenticate("login"));
+    signupBtn.addEventListener("click", () => authenticate("signup"));
 
     function authenticate(type) {
-        const email = document.getElementById("email-login").value;
-        const password = document.getElementById("password-login").value;
-        if (!email || !password) return alert("Please fill in all fields.");
-        user = { email, name: "User", phone: "+1 123-456-7890", profilePic: null, ratings: [] };
+        const email = document.getElementById("email-login").value.trim();
+        const password = document.getElementById("password-login").value.trim();
+
+        if (!email || !password) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        user = {
+            email,
+            name: type === "signup" ? "New User" : "User",
+            phone: "+1 123-456-7890",
+            profilePic: null,
+            ratings: []
+        };
         localStorage.setItem("user", JSON.stringify(user));
         checkAuthStatus();
     }
@@ -159,10 +174,10 @@ function calculateRoute() {
 }
 
 function updateRideDetails(distance, duration) {
-    const distanceKm = distance * 0.001; // Convert meters to kilometers
+    const distanceKm = distance * 0.001;
     const durationMin = Math.round(duration / 60);
-    const rates = { uberx: 124.5, uberxl: 166, black: 290.5 }; // ₹ per km
-    const baseFare = { uberx: 207.5, uberxl: 415, black: 830 }; // Base fare in ₹
+    const rates = { uberx: 124.5, uberxl: 166, black: 290.5 };
+    const baseFare = { uberx: 207.5, uberxl: 415, black: 830 };
     const surge = 1.2;
     const fare = (baseFare[selectedRideType] + distanceKm * rates[selectedRideType]) * surge;
 
@@ -298,13 +313,18 @@ function setupProfile() {
     const editBtn = document.getElementById("edit-profile-btn");
     const saveBtn = document.getElementById("save-profile-btn");
     const logoutBtn = document.getElementById("logout-btn");
+    const profilePic = document.getElementById("profile-pic");
+    const profilePicUpload = document.getElementById("profile-pic-upload");
 
     profileBtn.addEventListener("click", () => {
         profileModal.style.display = "flex";
+        const modalContent = profileModal.querySelector(".modal-content");
+        if (modalContent) modalContent.scrollTop = 0;
+
         document.getElementById("profile-name").textContent = user.name;
         document.getElementById("profile-email").textContent = user.email;
         document.getElementById("profile-phone").textContent = user.phone;
-        document.getElementById("profile-pic").src = user.profilePic || "https://via.placeholder.com/80";
+        profilePic.src = user.profilePic || "https://via.placeholder.com/80";
         document.getElementById("total-rides").textContent = rideHistory.length;
         document.getElementById("avg-rating").textContent = user.ratings.length ? (user.ratings.reduce((a, b) => a + b) / user.ratings.length).toFixed(1) : "--";
         document.getElementById("history-count").textContent = rideHistory.length;
@@ -314,18 +334,53 @@ function setupProfile() {
 
     editBtn.addEventListener("click", () => {
         ["profile-name", "profile-email", "profile-phone"].forEach(id => document.getElementById(id).contentEditable = "true");
+        profilePicUpload.style.display = "block"; // Show file input
         editBtn.style.display = "none";
         saveBtn.style.display = "block";
+
+        profilePicUpload.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) { // Limit to 2MB
+                    alert("Image size must be less than 2MB.");
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    profilePic.src = event.target.result; // Preview the new photo
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     });
 
     saveBtn.addEventListener("click", () => {
-        user.name = document.getElementById("profile-name").textContent;
-        user.email = document.getElementById("profile-email").textContent;
-        user.phone = document.getElementById("profile-phone").textContent;
-        localStorage.setItem("user", JSON.stringify(user));
-        ["profile-name", "profile-email", "profile-phone"].forEach(id => document.getElementById(id).contentEditable = "false");
-        editBtn.style.display = "block";
-        saveBtn.style.display = "none";
+        const newName = document.getElementById("profile-name").textContent.trim();
+        const newEmail = document.getElementById("profile-email").textContent.trim();
+        const newPhone = document.getElementById("profile-phone").textContent.trim();
+
+        if (!newName || !newEmail || !newPhone) {
+            alert("All fields must be filled.");
+            return;
+        }
+
+        user.name = newName;
+        user.email = newEmail;
+        user.phone = newPhone;
+
+        // Save the uploaded photo if a new one was selected
+        if (profilePicUpload.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                user.profilePic = event.target.result; // Store the photo as a data URL
+                localStorage.setItem("user", JSON.stringify(user));
+                resetEditState();
+            };
+            reader.readAsDataURL(profilePicUpload.files[0]);
+        } else {
+            localStorage.setItem("user", JSON.stringify(user));
+            resetEditState();
+        }
     });
 
     logoutBtn.addEventListener("click", () => {
@@ -335,7 +390,19 @@ function setupProfile() {
         checkAuthStatus();
     });
 
-    closeProfile.addEventListener("click", () => profileModal.style.display = "none");
+    closeProfile.addEventListener("click", () => {
+        profileModal.style.display = "none";
+        resetEditState(); // Reset edit state when closing
+    });
+
+    // Helper function to reset edit state
+    function resetEditState() {
+        ["profile-name", "profile-email", "profile-phone"].forEach(id => document.getElementById(id).contentEditable = "false");
+        profilePicUpload.style.display = "none";
+        profilePicUpload.value = ""; // Clear file input
+        editBtn.style.display = "block";
+        saveBtn.style.display = "none";
+    }
 }
 
 function setupThemeToggle() {
@@ -343,17 +410,15 @@ function setupThemeToggle() {
     toggleBtn.addEventListener("click", () => {
         document.body.classList.toggle("dark");
         toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-        // Save theme preference to localStorage
         localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
     });
 }
 
-// New function to clear input fields on page load
 function clearInputFields() {
     const pickupInput = document.getElementById("pickup");
     const destinationInput = document.getElementById("destination");
-    if (pickupInput) pickupInput.value = ""; // Clear pickup field
-    if (destinationInput) destinationInput.value = ""; // Clear destination field
+    if (pickupInput) pickupInput.value = "";
+    if (destinationInput) destinationInput.value = "";
 }
 
 function updateMap(coordinates) {
