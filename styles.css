@@ -1445,3 +1445,184 @@ body.dark .secondary-btn:hover {
         max-width: 8rem;
     }
 }
+
+/* Add to styles.css */
+
+/* Auth Section Container */
+.auth-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 0.9375rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 25rem;
+    margin: 1rem auto;
+    transition: background 0.5s;
+}
+
+body.dark .auth-section {
+    background: #2a2a2a;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Input Fields */
+#email-login,
+#password-login {
+    padding: 0.75rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    background: #fff;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#email-login:focus,
+#password-login:focus {
+    border-color: #1a1a1a;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    outline: none;
+}
+
+body.dark #email-login,
+body.dark #password-login {
+    background: #333;
+    border-color: #555;
+    color: #fff;
+}
+
+body.dark #email-login:focus,
+body.dark #password-login:focus {
+    border-color: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Placeholder Styling */
+#email-login::placeholder,
+#password-login::placeholder {
+    color: #888;
+    opacity: 1;
+}
+
+body.dark #email-login::placeholder,
+body.dark #password-login::placeholder {
+    color: #bbb;
+}
+
+/* Buttons */
+#login-btn,
+#signup-btn,
+#driver-signup-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 100%;
+    max-width: 12rem;
+    margin: 0 auto;
+}
+
+/* Login Button */
+#login-btn {
+    background: linear-gradient(135deg, #1a1a1a, #333);
+}
+
+#login-btn:hover {
+    background: linear-gradient(135deg, #333, #1a1a1a);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark #login-btn {
+    background: linear-gradient(135deg, #333, #555);
+}
+
+body.dark #login-btn:hover {
+    background: linear-gradient(135deg, #555, #777);
+}
+
+/* Sign Up Button */
+#signup-btn {
+    background: linear-gradient(135deg, #007bff, #00ccff);
+}
+
+#signup-btn:hover {
+    background: linear-gradient(135deg, #00ccff, #33e6ff);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark #signup-btn {
+    background: linear-gradient(135deg, #0056b3, #0099cc);
+}
+
+body.dark #signup-btn:hover {
+    background: linear-gradient(135deg, #0099cc, #33b3e6);
+}
+
+/* Join as Driver Button */
+#driver-signup-btn {
+    background: linear-gradient(135deg, #00cc00, #33ff33);
+}
+
+#driver-signup-btn:hover {
+    background: linear-gradient(135deg, #33ff33, #66ff66);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark #driver-signup-btn {
+    background: linear-gradient(135deg, #009900, #22cc22);
+}
+
+body.dark #driver-signup-btn:hover {
+    background: linear-gradient(135deg, #22cc22, #55ff55);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .auth-section {
+        padding: 1rem;
+        max-width: 20rem;
+    }
+
+    #email-login,
+    #password-login {
+        padding: 0.625rem 0.875rem;
+    }
+
+    #login-btn,
+    #signup-btn,
+    #driver-signup-btn {
+        padding: 0.625rem 1.25rem;
+        max-width: 10rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-section {
+        padding: 0.75rem;
+        max-width: 18rem;
+    }
+
+    #email-login,
+    #password-login {
+        padding: 0.5rem 0.75rem;
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
+    }
+
+    #login-btn,
+    #signup-btn,
+    #driver-signup-btn {
+        padding: 0.5rem 1rem;
+        max-width: 8rem;
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
+    }
+}
