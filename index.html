@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideX - Smart Cab Booking</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">RideX</div>
+            <nav>
+                <button class="profile-btn" id="profile-btn">Profile</button>
+                <button class="theme-toggle" id="theme-toggle">🌙</button>
+            </nav>
+        </header>
+
+        <main class="main-wrapper">
+            <div class="booking-panel" id="booking-panel">
+                <h1>Where to?</h1>
+                <div class="location-inputs">
+                    <div class="input-group">
+                        <span class="dot pickup"></span>
+                        <input type="text" id="pickup" placeholder="Enter pickup location" required>
+                        <ul class="suggestions" id="pickup-suggestions"></ul>
+                    </div>
+                    <div class="input-group extra-stop" style="display: none;">
+                        <span class="dot stop"></span>
+                        <input type="text" id="extra-stop" placeholder="Add extra stop">
+                        <ul class="suggestions" id="extra-stop-suggestions"></ul>
+                    </div>
+                    <div class="input-group">
+                        <span class="dot destination"></span>
+                        <input type="text" id="destination" placeholder="Enter destination" required>
+                        <ul class="suggestions" id="destination-suggestions"></ul>
+                    </div>
+                </div>
+                <button id="add-stop-btn">Add Stop</button>
+                <div class="ride-options">
+                    <div class="ride-type" data-type="economy"><img src="economy.png" alt="Economy"><span>Economy</span><span class="price">₹0</span></div>
+                    <div class="ride-type" data-type="premium"><img src="premium.png" alt="Premium"><span>Premium</span><span class="price">₹0</span></div>
+                    <div class="ride-type" data-type="luxury"><img src="luxury.png" alt="Luxury"><span>Luxury</span><span class="price">₹0</span></div>
+                    <div class="ride-type" data-type="bike"><img src="bike.png" alt="Bike"><span>Bike</span><span class="price">₹0</span></div>
+                    <div class="ride-type" data-type="pool"><img src="pool.png" alt="Pool"><span>Pool</span><span class="price">₹0</span></div>
+                </div>
+                <div id="fare-details">
+                    <p id="distance">Distance: -- km</p>
+                    <p id="duration">Duration: -- min</p>
+                    <p id="weather-info">Weather: Checking...</p>
+                    <p id="fare-estimate">Estimated Fare: ₹--</p>
+                </div>
+                <input type="datetime-local" id="schedule-time" style="display: none;">
+                <button id="schedule-btn">Schedule Ride</button>
+                <button id="book-btn" disabled>Book Now</button>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </main>
+
+        <div class="modal" id="booking-modal">
+            <div class="modal-content">
+                <h2>Booking Confirmed</h2>
+                <p id="modal-ride-type"></p>
+                <p id="modal-route"></p>
+                <p id="modal-eta">ETA: -- min</p>
+                <div class="fare-breakdown">
+                    <p>Base Fare: <span id="modal-base-fare"></span></p>
+                    <p>Distance Charge: <span id="modal-distance-charge"></span></p>
+                    <p>Surge (if any): <span id="modal-surge"></span></p>
+                    <p>Total: <span id="modal-total"></span></p>
+                </div>
+                <p id="driver-status">Finding driver...</p>
+                <div class="modal-buttons">
+                    <button id="cancel-btn">Cancel Ride</button>
+                    <button id="close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="profile-modal">
+            <div class="modal-content">
+                <h2>Your Profile</h2>
+                <div class="profile-details">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/100" alt="Profile Picture" id="profile-pic">
+                    </div>
+                    <div class="account-info">
+                        <p><strong>Name:</strong> <span id="profile-name" contenteditable="false"></span></p>
+                        <p><strong>Email:</strong> <span id="profile-email" contenteditable="false"></span></p>
+                        <p><strong>Phone:</strong> <span id="profile-phone" contenteditable="false"></span></p>
+                    </div>
+                </div>
+                <button id="edit-profile-btn">Edit Profile</button>
+                <button id="save-profile-btn" style="display: none;">Save Changes</button>
+                <button id="logout-btn">Logout</button>
+                <div class="ride-history">
+                    <h3>Ride History (<span id="history-count">0</span>)</h3>
+                    <ul id="ride-history-list"></ul>
+                    <p id="no-history" style="display: none;">No rides yet.</p>
+                </div>
+                <button id="close-profile">Close</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
