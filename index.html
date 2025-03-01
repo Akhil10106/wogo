@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WoGo</title> <!-- Changed from "Uber Luxe" to "WoGo" -->
+    <title>WoGo</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,19 +11,22 @@
 <body>
     <div class="container">
         <header class="header">
-            <div class="logo">WoGo</div> <!-- Changed from "Uber Luxe" to "WoGo" -->
+            <div class="logo">WoGo</div>
             <nav class="desktop-nav">
                 <button id="profile-btn" class="nav-btn">Profile</button>
+                <button id="driver-btn" class="nav-btn">Become a Driver</button>
                 <button id="theme-toggle" class="nav-btn">🌙</button>
             </nav>
             <button class="hamburger" id="hamburger">☰</button>
             <nav class="mobile-nav" id="mobile-nav">
                 <button id="mobile-profile-btn" class="nav-btn">Profile</button>
+                <button id="mobile-driver-btn" class="nav-btn">Become a Driver</button>
                 <button id="mobile-theme-toggle" class="nav-btn">🌙</button>
             </nav>
         </header>
 
-        <main class="main-wrapper">
+        <!-- Passenger View -->
+        <main class="main-wrapper" id="passenger-view">
             <aside class="booking-panel" id="booking-panel">
                 <h1>Where to?</h1>
                 <div class="location-inputs">
@@ -60,7 +63,8 @@
                     <p>Duration: <span id="duration">-- min</span></p>
                     <p>Estimated Fare: <span id="fare-estimate">₹--</span></p>
                 </div>
-                <button id="book-btn" class="action-btn primary-btn" disabled>Request WoGo</button> <!-- Optional: Updated button text -->
+                <input type="datetime-local" id="schedule-time" class="input-field" style="display: none;">
+                <button id="book-btn" class="action-btn primary-btn" disabled>Request WoGo</button>
                 <button id="schedule-btn" class="action-btn secondary-btn">Schedule for Later</button>
             </aside>
             <section class="map-container">
@@ -68,11 +72,76 @@
             </section>
         </main>
 
+        <!-- Driver Dashboard View (Full Page) -->
+        <div class="driver-dashboard-page" id="driver-dashboard-view" style="display: none;">
+            <div class="dashboard-sidebar">
+                <div class="sidebar-header">
+                    <div class="driver-icon" id="driver-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2550/2550223.png" alt="Driver Icon" class="driver-avatar">
+                        <span id="driver-name-dash"></span>
+                    </div>
+                    <div class="status-toggle">
+                        <span id="driver-status-dash"></span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-status-checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" data-section="overview">Overview</button>
+                    <button class="nav-item" data-section="rides">Ride History</button>
+                    <button class="nav-item" data-section="map">Current Ride Map</button>
+                    <button id="back-to-passenger" class="nav-item secondary">Back to Passenger View</button>
+                </nav>
+            </div>
+            <div class="dashboard-main">
+                <section class="dashboard-section overview-section" id="overview-section">
+                    <h1>Driver Overview</h1>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Rides</h3>
+                            <span id="driver-total-rides" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Earnings</h3>
+                            <span id="driver-earnings" class="stat-value">₹0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Avg Rating</h3>
+                            <span id="driver-avg-rating" class="stat-value">--</span>
+                        </div>
+                    </div>
+                    <div class="current-ride-card">
+                        <h2>Current Ride</h2>
+                        <div id="current-ride-info">
+                            <p>No active ride assigned.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="dashboard-section rides-section" id="rides-section" style="display: none;">
+                    <h1>Ride History (<span id="driver-history-count">0</span>)</h1>
+                    <div class="ride-history-container">
+                        <ul id="driver-ride-history-list"></ul>
+                        <p id="driver-no-history" style="display: none;">No rides yet.</p>
+                    </div>
+                </section>
+                <section class="dashboard-section map-section" id="map-section" style="display: none;">
+                    <h1>Current Ride Map</h1>
+                    <div class="map-container driver-map">
+                        <div id="driver-map"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Modals -->
         <div class="modal" id="booking-modal">
             <div class="modal-content">
                 <h2>Ride Confirmed</h2>
                 <p id="modal-ride-type" class="modal-text"></p>
                 <p id="modal-route" class="modal-text"></p>
+                <p id="modal-otp" class="modal-text" style="display: none;">Your OTP: <span id="otp-value"></span> (Share this with your driver)</p>
                 <p id="modal-eta" class="modal-text">ETA: -- min</p>
                 <div class="fare-breakdown">
                     <p>Base Fare: <span id="modal-base-fare"></span></p>
@@ -93,9 +162,8 @@
                 <div class="payment-section">
                     <h3>Payment</h3>
                     <select id="payment-method" class="select-input">
-                        <option value="card">Visa **** 1234</option>
-                        <option value="cash">Cash</option>
-                        <option value="upi">UPI</option>
+                        <option value="cod">COD (Cash on Delivery)</option>
+                        <option value="online-to-driver">Pay Online to Cab Driver</option>
                     </select>
                     <button id="pay-now" class="action-btn primary-btn">Confirm Payment</button>
                 </div>
@@ -123,7 +191,7 @@
                 <div class="profile-details">
                     <div class="profile-pic">
                         <img src="https://via.placeholder.com/80" alt="Profile" id="profile-pic">
-                        <input type="file" id="profile-pic-upload" accept="image/*" style="display: none;"> <!-- Added file input -->
+                        <input type="file" id="profile-pic-upload" accept="image/*" style="display: none;">
                     </div>
                     <div class="account-info">
                         <p><strong>Name:</strong> <span id="profile-name" contenteditable="false"></span></p>
@@ -150,8 +218,60 @@
                 <button id="close-profile" class="action-btn secondary-btn">Close</button>
             </div>
         </div>
+
+        <div class="modal" id="driver-registration-modal">
+            <div class="modal-content">
+                <h2>Become a Driver</h2>
+                <div class="driver-form" id="driver-registration-form">
+                    <input type="text" id="driver-name" class="input-field" placeholder="Full Name" required>
+                    <input type="email" id="driver-email" class="input-field" placeholder="Email" required>
+                    <input type="tel" id="driver-phone" class="input-field" placeholder="Phone Number" required>
+                    <input type="text" id="driver-vehicle" class="input-field" placeholder="Vehicle Type (e.g., Sedan)" required>
+                    <input type="text" id="driver-license" class="input-field" placeholder="License Number" required>
+                    <div class="input-group">
+                        <span class="dot pickup"></span>
+                        <input type="text" id="driver-location" class="input-field" placeholder="Current Location" required>
+                        <ul class="suggestions" id="driver-location-suggestions"></ul>
+                    </div>
+                    <button id="submit-driver" class="action-btn primary-btn">Register as Driver</button>
+                </div>
+                <button id="close-driver-registration" class="action-btn secondary-btn">Close</button>
+            </div>
+        </div>
+
+        <div class="modal" id="driver-details-modal" style="display: none;">
+            <div class="modal-content driver-details-modal-content">
+                <h2>Driver Profile</h2>
+                <div class="driver-details">
+                    <div class="detail-item">
+                        <strong>Driver ID:</strong> <span id="driver-id"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Name:</strong> <span id="driver-dash-name"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Email:</strong> <span id="driver-dash-email"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Phone:</strong> <span id="driver-dash-phone"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Vehicle:</strong> <span id="driver-dash-vehicle"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>License:</strong> <span id="driver-dash-license"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Location:</strong> <span id="driver-dash-location"></span>
+                    </div>
+                </div>
+                <button id="close-driver-details" class="action-btn secondary-btn">Close</button>
+            </div>
+        </div>
     </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
