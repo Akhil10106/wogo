@@ -1,3 +1,17 @@
+/* Root Variables for Consistency */
+:root {
+    --primary-color: #D4AF37; /* Gold accent */
+    --dark-bg: #1A1A1A; /* Dark mode background */
+    --light-bg: #FFFFFF; /* Light mode background */
+    --text-dark: #FFFFFF; /* Dark mode text */
+    --text-light: #1A1A1A; /* Light mode text */
+    --gradient-dark: linear-gradient(135deg, #2A2A2A, #1A1A1A); /* Dark gradient */
+    --gradient-light: linear-gradient(135deg, #FFFFFF, #F8F8F8); /* Light gradient */
+    --shadow-light: 0 6px 20px rgba(0, 0, 0, 0.08); /* Light mode shadow */
+    --shadow-dark: 0 6px 20px rgba(255, 255, 255, 0.08); /* Dark mode shadow */
+}
+
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,16 +20,16 @@
 }
 
 body {
-    background: #FFFFFF;
-    color: #1A1A1A;
+    background: var(--light-bg);
+    color: var(--text-light);
     min-height: 100vh;
     font-size: 16px;
     line-height: 1.6;
 }
 
 body.dark {
-    background: #1A1A1A;
-    color: #FFFFFF;
+    background: var(--dark-bg);
+    color: var(--text-dark);
 }
 
 .container {
@@ -26,29 +40,30 @@ body.dark {
     overflow: hidden;
 }
 
+/* Header Styles */
 .header {
-    background: linear-gradient(135deg, #FFFFFF, #F5F5F5);
+    background: var(--gradient-light);
     padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-light);
 }
 
 body.dark .header {
-    background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+    background: var(--gradient-dark);
+    box-shadow: var(--shadow-dark);
 }
 
 .logo {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: var(--text-light);
     letter-spacing: 1px;
 }
 
 body.dark .logo {
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 .desktop-nav {
@@ -61,7 +76,7 @@ body.dark .logo {
     border: none;
     font-size: 1rem;
     font-weight: 500;
-    color: #1A1A1A;
+    color: var(--text-light);
     cursor: pointer;
     padding: 0.75rem 1.25rem;
     border-radius: 25px;
@@ -69,12 +84,12 @@ body.dark .logo {
 }
 
 body.dark .nav-btn {
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 .nav-btn:hover {
     background: rgba(212, 175, 55, 0.1);
-    color: #D4AF37;
+    color: var(--primary-color);
 }
 
 .hamburger {
@@ -82,12 +97,12 @@ body.dark .nav-btn {
     background: none;
     border: none;
     font-size: 1.75rem;
-    color: #1A1A1A;
+    color: var(--text-light);
     cursor: pointer;
 }
 
 body.dark .hamburger {
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 .mobile-nav {
@@ -95,7 +110,7 @@ body.dark .hamburger {
     position: absolute;
     top: 70px;
     right: 2rem;
-    background: #FFFFFF;
+    background: var(--light-bg);
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -110,37 +125,40 @@ body.dark .mobile-nav {
     display: block;
 }
 
+/* Passenger View */
 .main-wrapper {
     flex: 1;
     display: flex;
     gap: 2rem;
     padding: 2rem;
     overflow: hidden;
+    height: calc(100vh - 70px);
 }
 
 .booking-panel {
     width: 450px;
     padding: 2rem;
-    background: linear-gradient(135deg, #FFFFFF, #F8F8F8);
+    background: var(--gradient-light);
     border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    overflow-y: auto;
+    box-shadow: var(--shadow-light);
+    overflow-y: scroll;
+    height: 100%;
 }
 
 body.dark .booking-panel {
-    background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.08);
+    background: var(--gradient-dark);
+    box-shadow: var(--shadow-dark);
 }
 
 h1 {
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: #1A1A1A;
+    color: var(--text-light);
 }
 
 body.dark h1 {
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 .location-inputs {
@@ -163,7 +181,7 @@ body.dark h1 {
     border-radius: 50%;
 }
 
-.dot.pickup { background: #D4AF37; }
+.dot.pickup { background: var(--primary-color); }
 .dot.destination { background: #00C167; }
 
 .input-field, .select-input {
@@ -172,18 +190,18 @@ body.dark h1 {
     border: 2px solid #E0E0E0;
     border-radius: 8px;
     font-size: 1rem;
-    background: #FFFFFF;
+    background: var(--light-bg);
     transition: all 0.3s ease;
 }
 
 body.dark .input-field, body.dark .select-input {
     background: #333333;
     border-color: #555555;
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 .input-field:focus, .select-input:focus {
-    border-color: #D4AF37;
+    border-color: var(--primary-color);
     outline: none;
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
@@ -193,7 +211,7 @@ body.dark .input-field, body.dark .select-input {
     top: calc(100% + 0.5rem);
     left: 0;
     right: 0;
-    background: #FFFFFF;
+    background: var(--light-bg);
     border: 2px solid #E0E0E0;
     border-radius: 8px;
     list-style: none;
@@ -221,7 +239,7 @@ body.dark .suggestions {
 }
 
 body.dark .suggestions li {
-    color: #FFFFFF;
+    color: var(--text-dark);
     border-bottom: 1px solid #555555;
 }
 
@@ -240,7 +258,6 @@ body.dark .suggestions li:hover {
     margin: 2rem 0;
 }
 
-/* Existing ride-type styles */
 .ride-type {
     display: flex;
     align-items: center;
@@ -248,7 +265,7 @@ body.dark .suggestions li:hover {
     border: 2px solid #E0E0E0;
     border-radius: 12px;
     cursor: pointer;
-    background: #FFFFFF;
+    background: var(--light-bg);
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -258,39 +275,48 @@ body.dark .ride-type {
     border-color: #555555;
 }
 
-/* Remove the yellow color from .active and simplify it */
 .ride-type.active {
-    border-width: 3px; /* Slightly thicker border */
-    border-color: #333333; /* Matches light mode hover */
+    border-width: 3px;
+    border-color: #333333;
 }
 
-/* Add hover effect matching the theme */
 .ride-type:hover {
-    border-color: #333333; /* Darker shade for light mode */
+    border-color: #333333;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    background: #F5F5F5; /* Subtle background change */
+    background: #F5F5F5;
 }
 
 body.dark .ride-type.active {
-    border-width: 3px;
-    border-color: #E0E0E0; /* Matches dark mode hover */
+    border-color: #E0E0E0;
 }
 
 body.dark .ride-type:hover {
-    border-color: #E0E0E0; /* Lighter shade for dark mode */
+    border-color: #E0E0E0;
     box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
-    background: #444444; /* Subtle background change */
+    background: #444444;
 }
 
-/* Existing price styles (remove yellow color if not desired) */
+.ride-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 1.5rem;
+    object-fit: contain;
+}
+
+.ride-type span {
+    flex: 1;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 .price {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1A1A1A; /* Change from #D4AF37 to match theme */
+    color: var(--text-light);
 }
 
 body.dark .price {
-    color: #FFFFFF; /* Match dark theme */
+    color: var(--text-dark);
 }
 
 #fare-details {
@@ -325,7 +351,7 @@ body.dark #fare-details {
 
 .primary-btn {
     background: linear-gradient(135deg, #1A1A1A, #333333);
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 .primary-btn:hover:not(:disabled) {
@@ -341,7 +367,7 @@ body.dark #fare-details {
 
 body.dark .primary-btn {
     background: linear-gradient(135deg, #FFFFFF, #E0E0E0);
-    color: #1A1A1A;
+    color: var(--text-light);
 }
 
 body.dark .primary-btn:hover:not(:disabled) {
@@ -350,7 +376,7 @@ body.dark .primary-btn:hover:not(:disabled) {
 
 .secondary-btn {
     background: #E0E0E0;
-    color: #1A1A1A;
+    color: var(--text-light);
 }
 
 .secondary-btn:hover {
@@ -360,7 +386,7 @@ body.dark .primary-btn:hover:not(:disabled) {
 
 body.dark .secondary-btn {
     background: #444444;
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 body.dark .secondary-btn:hover {
@@ -372,13 +398,16 @@ body.dark .secondary-btn:hover {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    width: 100%;
 }
 
-#map {
+#map, #driver-map {
     width: 100%;
     height: 100%;
 }
 
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -393,16 +422,18 @@ body.dark .secondary-btn:hover {
 }
 
 .modal-content {
-    background: #FFFFFF;
+    background: var(--light-bg);
     padding: 2rem;
     border-radius: 16px;
     width: 90%;
     max-width: 500px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 body.dark .modal-content {
-    background: #1A1A1A;
+    background: var(--dark-bg);
 }
 
 .modal-content h2 {
@@ -429,7 +460,7 @@ body.dark .modal-content {
 
 .total-fare {
     font-weight: 600;
-    color: #D4AF37;
+    color: var(--primary-color);
 }
 
 .chat-box {
@@ -457,19 +488,19 @@ body.dark .chat-box {
 #chat-messages p {
     margin: 0.5rem 0;
     padding: 0.75rem;
-    background: #FFFFFF;
+    background: var(--light-bg);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 body.dark #chat-messages p {
     background: #333333;
-    color: #FFFFFF;
+    color: var(--text-dark);
 }
 
 #chat-messages p.sent {
-    background: #D4AF37;
-    color: #1A1A1A;
+    background: var(--primary-color);
+    color: var(--text-light);
     text-align: right;
 }
 
@@ -506,7 +537,7 @@ body.dark #chat-messages p {
 }
 
 .stars span.active {
-    color: #D4AF37;
+    color: var(--primary-color);
 }
 
 .modal-buttons {
@@ -516,44 +547,464 @@ body.dark #chat-messages p {
     margin-top: 2rem;
 }
 
+/* Driver Dashboard Styles */
+.driver-dashboard-page {
+    display: flex;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+}
+
+.dashboard-sidebar {
+    width: 250px;
+    background: var(--gradient-light);
+    padding: 2rem 1rem;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+body.dark .dashboard-sidebar {
+    background: var(--gradient-dark);
+    box-shadow: 4px 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.driver-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.driver-icon:hover {
+    transform: scale(1.05);
+}
+
+.driver-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#driver-name-dash {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+body.dark #driver-name-dash {
+    color: var(--text-dark);
+}
+
+.status-toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#driver-status-dash {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+body.dark .nav-item {
+    color: var(--text-dark);
+}
+
+.nav-item:hover, .nav-item.active {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--primary-color);
+}
+
+.nav-item.secondary {
+    margin-top: auto;
+    background: #E0E0E0;
+}
+
+body.dark .nav-item.secondary {
+    background: #444444;
+}
+
+.dashboard-main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background: #F5F5F5;
+}
+
+body.dark .dashboard-main {
+    background: #222222;
+}
+
+.dashboard-section {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+body.dark h1 {
+    color: var(--text-dark);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--gradient-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+body.dark .stat-card {
+    background: var(--gradient-dark);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+body.dark .stat-card h3 {
+    color: var(--text-dark);
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.current-ride-card {
+    background: var(--gradient-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .current-ride-card {
+    background: var(--gradient-dark);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.current-ride-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#current-ride-info p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.ride-history-container {
+    background: var(--gradient-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .ride-history-container {
+    background: var(--gradient-dark);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+#driver-ride-history-list {
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.ride-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+body.dark .ride-item {
+    border-bottom: 1px solid #555555;
+}
+
+.ride-item span {
+    font-size: 1rem;
+}
+
+.driver-map {
+    height: 400px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.driver-details-modal-content {
+    padding: 2rem;
+    max-width: 400px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.75rem 0;
+}
+
+.detail-item strong {
+    font-weight: 600;
+}
+
+/* Scrollbar Styles */
+.booking-panel::-webkit-scrollbar, #chat-messages::-webkit-scrollbar, #driver-ride-history-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.booking-panel::-webkit-scrollbar-track, #chat-messages::-webkit-scrollbar-track, #driver-ride-history-list::-webkit-scrollbar-track {
+    background: #E0E0E0;
+    border-radius: 12px;
+}
+
+body.dark .booking-panel::-webkit-scrollbar-track, body.dark #chat-messages::-webkit-scrollbar-track, body.dark #driver-ride-history-list::-webkit-scrollbar-track {
+    background: #333333;
+}
+
+.booking-panel::-webkit-scrollbar-thumb, #chat-messages::-webkit-scrollbar-thumb, #driver-ride-history-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 12px;
+    transition: background 0.3s ease;
+}
+
+.booking-panel::-webkit-scrollbar-thumb:hover, #chat-messages::-webkit-scrollbar-thumb:hover, #driver-ride-history-list::-webkit-scrollbar-thumb:hover {
+    background: #B8962F;
+}
+
+body.dark .booking-panel::-webkit-scrollbar-thumb, body.dark #chat-messages::-webkit-scrollbar-thumb, body.dark #driver-ride-history-list::-webkit-scrollbar-thumb {
+    background: #E0E0E0;
+}
+
+body.dark .booking-panel::-webkit-scrollbar-thumb:hover, body.dark #chat-messages::-webkit-scrollbar-thumb:hover, body.dark #driver-ride-history-list::-webkit-scrollbar-thumb:hover {
+    background: #CCCCCC;
+}
+
+/* Profile Modal Specific Styles */
+#profile-modal .modal-content {
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px; /* Slightly wider for better layout */
+    background: var(--light-bg);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+body.dark #profile-modal .modal-content {
+    background: var(--dark-bg);
+}
+
 .profile-details {
     display: flex;
     align-items: center;
     gap: 2rem;
     margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #F8F8F8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .profile-details {
+    background: #2A2A2A;
+}
+
+.profile-pic {
+    flex-shrink: 0;
 }
 
 .profile-pic img {
-    width: 100px;
+    width: 100px; /* Larger for better visibility */
     height: 100px;
     border-radius: 50%;
-    border: 3px solid #D4AF37;
+    border: 3px solid var(--primary-color);
+    object-fit: cover;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic input[type="file"] {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.account-info {
+    flex: 1;
 }
 
 .account-info p {
     margin: 0.75rem 0;
-    font-size: 1rem;
-}
-
-.stats {
-    margin: 2rem 0;
-}
-
-.stats p {
-    margin: 0.75rem 0;
-    font-size: 1rem;
-}
-
-.promo-section {
-    margin: 2rem 0;
+    font-size: 1.1rem;
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
     align-items: center;
 }
 
+.account-info p strong {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+body.dark .account-info p strong {
+    color: var(--text-dark);
+}
+
+.account-info p span {
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+body.dark .account-info p span {
+    color: var(--text-dark);
+}
+
+.account-info p span[contenteditable="true"] {
+    background: #E0E0E0;
+    outline: none;
+    padding: 0.5rem 1rem;
+    width: 70%;
+    text-align: right;
+}
+
+body.dark .account-info p span[contenteditable="true"] {
+    background: #444444;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #F8F8F8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .stats {
+    background: #2A2A2A;
+}
+
+.stats p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.stats p span {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.promo-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.promo-section input {
+    flex: 1;
+}
+
 .ride-history {
-    margin: 2rem 0;
+    margin-bottom: 2rem;
 }
 
 .ride-history h3 {
@@ -563,230 +1014,332 @@ body.dark #chat-messages p {
 
 .ride-history ul {
     list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 1rem;
+    background: #F8F8F8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .ride-history ul {
+    background: #2A2A2A;
 }
 
 .ride-history li {
-    padding: 1rem 0;
+    padding: 0.75rem 0;
     border-bottom: 1px solid #E0E0E0;
+    font-size: 1rem;
 }
 
 body.dark .ride-history li {
     border-bottom: 1px solid #555555;
 }
 
-/* Existing styles remain unchanged except for the following */
+.ride-history li:last-child {
+    border-bottom: none;
+}
 
-/* Booking Panel */
-.booking-panel {
-    width: 450px;
+.ride-history p#no-history {
+    text-align: center;
+    color: #888888;
+    font-style: italic;
+}
+
+/* Button Group for Profile Actions */
+#profile-modal .action-btn {
+    margin: 0.5rem 0; /* Space between stacked buttons */
+}
+
+/* Profile Modal Specific Styles */
+#profile-modal .modal-content {
     padding: 2rem;
-    background: linear-gradient(135deg, #FFFFFF, #F8F8F8);
+    width: 90%;
+    max-width: 600px;
+    background: var(--light-bg);
     border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    overflow-y: scroll; /* Enable scrolling */
-    height: 100%; /* Fit within main-wrapper */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
-.booking-panel::-webkit-scrollbar {
-    width: 8px; /* Slim scrollbar for a sleek look */
+body.dark #profile-modal .modal-content {
+    background: var(--dark-bg);
 }
 
-.booking-panel::-webkit-scrollbar-track {
-    background: #E0E0E0; /* Light grey track in light mode */
-    border-radius: 12px;
-}
-
-.booking-panel::-webkit-scrollbar-thumb {
-    background: #D4AF37; /* Gold thumb to match theme */
-    border-radius: 12px;
-    transition: background 0.3s ease;
-}
-
-.booking-panel::-webkit-scrollbar-thumb:hover {
-    background: #B8962F; /* Slightly darker gold on hover */
-}
-
-body.dark .booking-panel {
-    background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.08);
-}
-
-body.dark .booking-panel::-webkit-scrollbar-track {
-    background: #333333; /* Dark grey track in dark mode */
-}
-
-body.dark .booking-panel::-webkit-scrollbar-thumb {
-    background: #E0E0E0; /* Light grey thumb in dark mode */
-}
-
-body.dark .booking-panel::-webkit-scrollbar-thumb:hover {
-    background: #CCCCCC; /* Slightly darker on hover */
-}
-
-/* Main Wrapper (unchanged) */
-.main-wrapper {
-    flex: 1;
-    display: flex;
-    gap: 2rem;
-    padding: 2rem;
-    overflow: hidden;
-    height: calc(100vh - 70px);
-}
-
-.price {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1A1A1A; /* Matches theme, no yellow now */
-}
-
-body.dark .price {
-    color: #FFFFFF;
-}
-
-#fare-details p, .fare-breakdown p {
-    margin: 0.75rem 0;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.total-fare {
-    font-weight: 600;
-    color: #D4AF37; /* Gold for emphasis, adjust if unwanted */
-}
-
-/* Existing ride-type styles */
-.ride-type {
+.profile-details {
     display: flex;
     align-items: center;
-    padding: 1.25rem;
-    border: 2px solid #E0E0E0;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #F8F8F8;
     border-radius: 12px;
-    cursor: pointer;
-    background: #FFFFFF;
-    transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-body.dark .ride-type {
-    background: #333333;
-    border-color: #555555;
+body.dark .profile-details {
+    background: #2A2A2A;
 }
 
-.ride-type:hover {
-    border-color: #333333;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    background: #F5F5F5;
+.profile-pic {
+    flex-shrink: 0;
 }
 
-body.dark .ride-type:hover {
-    border-color: #E0E0E0;
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic input[type="file"] {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.account-info {
+    flex: 1;
+    width: 100%; /* Ensure it takes full available width */
+}
+
+.account-info p {
+    margin: 0.75rem 0;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem; /* Add gap for better spacing */
+}
+
+.account-info p strong {
+    font-weight: 600;
+    color: var(--text-light);
+    flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+body.dark .account-info p strong {
+    color: var(--text-dark);
+}
+
+.account-info p span {
+    color: var(--text-light);
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    flex: 1; /* Allow span to grow and take available space */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    text-overflow: ellipsis; /* Add ellipsis if text is too long */
+    white-space: nowrap; /* Keep text on one line by default */
+}
+
+body.dark .account-info p span {
+    color: var(--text-dark);
+}
+
+.account-info p span[contenteditable="true"] {
+    background: #E0E0E0;
+    outline: none;
+    padding: 0.75rem 1rem; /* More padding for comfort */
+    width: 100%; /* Full width for editing */
+    min-width: 0; /* Prevent excessive shrinking */
+    max-width: 100%; /* Prevent overflow */
+    white-space: normal; /* Allow wrapping when editing */
+    word-wrap: break-word; /* Break long words */
+    overflow-x: auto; /* Allow horizontal scroll only if needed */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
+}
+
+body.dark .account-info p span[contenteditable="true"] {
     background: #444444;
 }
 
-/* New ride-icon styles */
-.ride-icon {
-    width: 50px;
-    height: 50px;
-    margin-right: 1.5rem;
-    object-fit: contain; /* Ensure image fits without distortion */
-    display: block; /* Prevent any inline issues */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #F8F8F8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.ride-type span {
-    flex: 1;
+body.dark .stats {
+    background: #2A2A2A;
+}
+
+.stats p {
     font-size: 1.1rem;
     font-weight: 500;
 }
 
-.price {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1A1A1A;
+.stats p span {
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
-body.dark .price {
-    color: #FFFFFF;
-}
-
-/* Existing styles remain unchanged except for additions below */
-
-/* Profile Modal */
-.modal#profile-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
+.promo-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
     align-items: center;
-    z-index: 1000;
 }
 
-.modal-content {
-    background: #FFFFFF;
-    padding: 2rem;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    max-height: 80vh; /* Limit height to trigger scrollbar */
-    overflow-y: scroll; /* Enable vertical scrolling */
+.promo-section input {
+    flex: 1;
+    min-width: 200px; /* Minimum width to prevent shrinking too much */
+    padding: 1rem; /* Consistent padding */
+    font-size: 1rem;
 }
 
-/* Custom Scrollbar for Profile Modal */
-.modal-content::-webkit-scrollbar {
-    width: 8px; /* Slim scrollbar for sleek look */
+.promo-section .action-btn {
+    padding: 1rem 2rem; /* Wider button for better click area */
 }
 
-.modal-content::-webkit-scrollbar-track {
-    background: #E0E0E0; /* Light grey track in light mode */
-    border-radius: 12px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background: #D4AF37; /* Gold thumb to match theme */
-    border-radius: 12px;
-    transition: background 0.3s ease;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-    background: #B8962F; /* Slightly darker gold on hover */
-}
-
-body.dark .modal-content {
-    background: #1A1A1A;
-}
-
-body.dark .modal-content::-webkit-scrollbar-track {
-    background: #333333; /* Dark grey track in dark mode */
-}
-
-body.dark .modal-content::-webkit-scrollbar-thumb {
-    background: #E0E0E0; /* Light grey thumb in dark mode */
-}
-
-body.dark .modal-content::-webkit-scrollbar-thumb:hover {
-    background: #CCCCCC; /* Slightly darker on hover */
-}
-
-/* Ensure ride-history section doesn’t overflow unnecessarily */
 .ride-history {
-    margin: 2rem 0;
-}
-
-/* Optional: Adjust content padding for better spacing */
-.profile-details, .stats, .promo-section, .ride-history {
     margin-bottom: 2rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .booking-panel {
+.ride-history h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.ride-history ul {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 1rem;
+    background: #F8F8F8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .ride-history ul {
+    background: #2A2A2A;
+}
+
+.ride-history li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 1rem;
+    word-wrap: break-word; /* Ensure long text wraps */
+}
+
+body.dark .ride-history li {
+    border-bottom: 1px solid #555555;
+}
+
+.ride-history li:last-child {
+    border-bottom: none;
+}
+
+.ride-history p#no-history {
+    text-align: center;
+    color: #888888;
+    font-style: italic;
+}
+
+/* Button Group for Profile Actions */
+#profile-modal .action-btn {
+    margin: 0.5rem 0;
+    width: 100%; /* Full width for consistency */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    #profile-modal .modal-content {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    .profile-details {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .profile-pic img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .account-info p {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .account-info p span {
+        width: 100%; /* Full width on small screens */
+    }
+
+    .account-info p span[contenteditable="true"] {
         width: 100%;
-        height: auto; /* Allow natural height on mobile */
+        text-align: left;
+        padding: 0.75rem;
+    }
+
+    .stats {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .promo-section {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .promo-section input {
+        min-width: 100%; /* Full width on small screens */
+    }
+
+    .promo-section .action-btn {
+        padding: 1rem;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    #profile-modal .modal-content {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    .profile-details {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .profile-pic img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .account-info p {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .account-info p span[contenteditable="true"] {
+        width: 100%;
+        text-align: left;
+    }
+
+    .stats {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .promo-section {
+        flex-direction: column;
     }
 }
 
@@ -796,14 +1349,19 @@ body.dark .modal-content::-webkit-scrollbar-thumb:hover {
         flex-direction: column;
         padding: 1.5rem;
         gap: 1.5rem;
+        height: calc(100vh - 60px);
     }
 
     .booking-panel {
         width: 100%;
+        height: auto;
+        max-height: 50vh;
+        overflow-y: scroll;
     }
 
     .map-container {
         height: 50vh;
+        min-height: 300px;
     }
 
     .desktop-nav {
@@ -812,6 +1370,34 @@ body.dark .modal-content::-webkit-scrollbar-thumb:hover {
 
     .hamburger {
         display: block;
+    }
+
+    .driver-dashboard-page {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .nav-item {
+        flex: 1;
+        text-align: center;
+    }
+
+    .dashboard-main {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -831,5 +1417,14 @@ body.dark .modal-content::-webkit-scrollbar-thumb:hover {
 
     .modal-content {
         padding: 1.5rem;
+    }
+
+    .map-container {
+        height: 40vh;
+        min-height: 250px;
+    }
+
+    .driver-map {
+        height: 250px;
     }
 }
